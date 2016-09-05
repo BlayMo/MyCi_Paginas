@@ -163,7 +163,7 @@ El software de terceros:
   
     se distribuye con sus respectivas licencias, que figuran en su correspondiente carpeta.
 
-![Pantalla_01.jpg](https://github.com/BlayMo/MyCi_Pagina/blob/master/Pantalla_01.jpg "")
+![Pantalla_01.jpg](https://github.com/BlayMo/MyCi_Paginas/blob/master/Pantalla_01.jpg "")
 
 La finalidad de este proyecto es el aprendizaje. Agradezco cualquier sugerencia, y/o correción que sea para mejorar el código del proyecto.
 
