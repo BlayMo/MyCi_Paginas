@@ -1,4 +1,4 @@
-# MyCi_Pagina
+# MyCi_Paginas
 Simple ejercicio de paginación HMVC realizado con PHP7 + Codeigniter 3.2.0-dev + Bootstrap 3.1.1
 
 El proyecto es un ejercicio de paginación aplicando el pattern HMVC. **No** he empleado "CodeIgniter’s Pagination class".
