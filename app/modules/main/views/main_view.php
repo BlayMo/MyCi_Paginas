@@ -145,23 +145,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                <p><?php echo $value->bio ?></p>
                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                <hr>
-               <?php  }?>
                <!-- Pager ----------------------------------------------------------------------------->
-               <ul class="pager">
-                  <p class="previous text-center"><code>Pagina <?=$pagina?>/<?=$paginas?></code></p>
-                  <li class="inicio">
-                     <a href="<?=site_url('main')?>">Primero</a>
-                  </li>
-                  <li class="previous">
-                     <a href="<?=site_url('main/anterior/'.($pagina - 1))?>">&larr; Anterior</a>
-                  </li>
-                  <li class="inicio">
-                     <a href="<?=site_url('main/ultimo')?>">Ultimo</a>
-                  </li>
-                  <li class="next">
-                     <a href="<?=site_url('main/siguiente/'.($pagina + 1))?>">Siguiente &rarr;</a>
-                  </li>
-               </ul>
+               <?php  }
+               if ($paginacion){ require_once 'main_pager.php';}               
+               ?>                              
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4">

@@ -60,6 +60,9 @@ class Main extends MX_Controller {
         var $nro_reg;
         var $pagina;
         var $tot_paginas;
+        var $anterior;
+        var $siguiente;
+        var $paginacion;
         
         function __construct()
         {
@@ -70,8 +73,15 @@ class Main extends MX_Controller {
             $this->limite_sup = 0;            
             $this->filas = 3;            
             $this->nro_reg = $this->Faker_users_model->total_rows();
-            $this->pagina = 1;
-            $this->tot_paginas = intval(($this->nro_reg / $this->filas) + ($this->nro_reg % $this->filas));
+            $this->pagina = 1;            
+            $this->tot_paginas = intval(($this->nro_reg / $this->filas));
+            if (($this->nro_reg % $this->filas) > 0){ ++$this->tot_paginas ;}
+            $this->anterior = FALSE;
+            $this->siguiente = TRUE;
+            if ( $this->nro_reg != 0)
+                {
+                    $this->paginacion = TRUE;
+                } else { $this->paginacion = FALSE;}
         }
 	
 	public function index()
@@ -80,17 +90,26 @@ class Main extends MX_Controller {
             $data = array(
                 'faker_users_data' => $faker_users
             );            
-            //print_r($this->limite_sup); 
             
-            $data['pagina'] = $this->pagina;
-            $data['paginas'] = $this->tot_paginas;
+            
+            $data['pagina']      = $this->pagina;
+            $data['paginas']     = $this->tot_paginas;
+            $data['anterior']    = $this->anterior;
+            $data['siguiente']   = $this->siguiente;
+            $data['paginacion']  = $this->paginacion;
+            
             $this->load->view('main_view',$data);                       
 	}
                                                                 
         public function siguiente($pagina)
-        {            
+        {    
+            $this->anterior = TRUE;
             $this->limite_sup = ($pagina * $this->filas) - $this->filas;
-            if( $this->limite_sup > $this->nro_reg ){ $this->limite_sup = $this->nro_reg;}
+            if( $this->limite_sup > $this->nro_reg )
+                {
+                    $this->limite_sup = $this->nro_reg;
+                    $this->siguiente = FALSE;
+                }
             $this->pagina = $pagina;
             $this->index();            
         }
@@ -99,12 +118,25 @@ class Main extends MX_Controller {
         {
             $this->limite_sup = $this->nro_reg - $this->filas ;
             $this->pagina = $this->tot_paginas;
+            $this->siguiente = FALSE;
+            $this->anterior = TRUE;
             $this->index();           
         }
         
         public function anterior($pagina)
         {     
-            if ($pagina === 0){ $this->pagina = 1;}else { $this->pagina = $pagina;}
+            $this->siguiente = TRUE;
+            
+            if ($pagina === 0)
+                {
+                    $this->pagina = 1;
+                    $this->anterior = FALSE;
+                }else 
+                    {
+                        $this->pagina = $pagina;
+                        $this->anterior = TRUE;
+                    }
+                
             if ($this->pagina > 1){
                 $this->limite_sup = $this->limite_sup - $this->filas ;
                 if( $this->limite_sup < $this->filas ){ $this->limite_sup = $this->filas;}                              
